@@ -30,7 +30,7 @@ def plotting_first(dicti, filename, number_streets, better_name):
     plt.savefig(filename)
 
 
-def split(word):
+def splitting(word):
     return [char for char in word]
 
 
@@ -42,19 +42,27 @@ if __name__ == '__main__':
     firstletter = ""
     str = ""
 
+    len_word = []
+
     for word in words:
         firstletter += word[0]
         word = word.lower()
         str += word
+        len_word.append(len(word))
 
-    countsC = Counter(split(str))
+    print(f'Kürzester Name:\t{np.min(len_word)}\t{words[np.argmin(len_word)]}')
+    print(f'Längster Name:\t{np.max(len_word)}\t{words[np.argmax(len_word)]}')
+    print(f'Längster Name:\t{np.max(len_word[::-1])}\t{words[::-1][np.argmax(len_word[::-1])]}')
+    print(f'Durchschnitt:\t{len(str)/len(words)}')
+
+    countsC = Counter(splitting(str))
     counts = dict()
-    for key, elem in countsC.most_common(np.unique(split(str)).size):
+    for key, elem in countsC.most_common(np.unique(splitting(str)).size):
         counts[key] = elem
 
-    countsL = Counter(split(firstletter))
+    countsL = Counter(splitting(firstletter))
     firstL = dict()
-    for key, elem in countsL.most_common(np.unique(split(firstletter)).size):
+    for key, elem in countsL.most_common(np.unique(splitting(firstletter)).size):
         firstL[key] = elem
 
     plt.figure(constrained_layout=True)
